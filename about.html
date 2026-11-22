@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Tower of Hanoi — a free online puzzle game with smooth animations, leaderboard, and educational content.">
+    <title>About — Tower of Hanoi</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗼</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a1a; --bg2: #12122a; --c1: #f0f0f8; --c2: #8888aa; --c3: #555577;
+            --a1: #7c5cfc; --a2: #00d4ff; --a3: #ff6b9d; --bdr: rgba(255,255,255,0.06);
+            --font: 'Outfit', sans-serif;
+        }
+        [data-theme="light"] {
+            --bg: #f5f5fa; --bg2: #ffffff; --c1: #1a1a2e; --c2: #555577; --c3: #8888aa;
+            --bdr: rgba(0,0,0,0.08);
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); background: var(--bg); color: var(--c1); line-height: 1.7; transition: background 0.4s, color 0.4s; }
+        .container { max-width: 700px; margin: 0 auto; padding: 40px 24px 60px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--a2); text-decoration: none; font-size: 0.85rem; margin-bottom: 20px; transition: 0.2s; }
+        .back-link:hover { color: var(--a1); }
+        h1 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; background: linear-gradient(135deg, var(--a2), var(--a1), var(--a3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        h2 { font-size: 1.1rem; font-weight: 700; color: var(--a2); margin: 24px 0 8px; }
+        p, li { color: var(--c2); font-size: 0.88rem; font-weight: 300; }
+        ul { padding-left: 20px; margin: 8px 0; }
+        li { margin: 4px 0; }
+        a { color: var(--a2); }
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+        @media (max-width: 500px) { .features { grid-template-columns: 1fr; } }
+        .feature {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--bdr);
+            border-radius: 10px; padding: 16px; text-align: center;
+        }
+        [data-theme="light"] .feature { background: rgba(0,0,0,0.02); }
+        .feature-icon { font-size: 1.6rem; margin-bottom: 6px; }
+        .feature-title { font-size: 0.85rem; font-weight: 600; color: var(--c1); margin-bottom: 4px; }
+        .feature-desc { font-size: 0.75rem; color: var(--c3); }
+        .cta {
+            display: inline-block; margin-top: 20px; padding: 12px 30px;
+            background: linear-gradient(135deg, var(--a1), var(--a2));
+            color: #fff; border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: 0.9rem; transition: 0.3s;
+        }
+        .cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,92,252,0.3); }
+        .footer { text-align: center; padding: 20px; color: var(--c3); font-size: 0.7rem; border-top: 1px solid var(--bdr); margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Game</a>
+        <h1>About Tower of Hanoi</h1>
+
+        <p>Tower of Hanoi is a free, beautifully designed online puzzle game that brings the classic mathematical challenge to your browser. Whether you're a student learning recursion, a casual puzzle lover, or a competitive speedrunner — this game is for you.</p>
+
+        <h2>🎮 Features</h2>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <div class="feature-title">Smooth Animations</div>
+                <div class="feature-desc">Fluid disk movements with satisfying visual effects</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🏆</div>
+                <div class="feature-title">Global Leaderboard</div>
+                <div class="feature-desc">Compete with players worldwide across 3-9 disk categories</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💡</div>
+                <div class="feature-title">Smart Hints</div>
+                <div class="feature-desc">Get optimal move suggestions when you're stuck</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <div class="feature-title">Auto-Solve</div>
+                <div class="feature-desc">Watch the algorithm solve the puzzle step by step</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌓</div>
+                <div class="feature-title">Dark & Light Themes</div>
+                <div class="feature-desc">Switch between themes for comfortable play</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <div class="feature-title">Fully Responsive</div>
+                <div class="feature-desc">Play on desktop, tablet, or mobile devices</div>
+            </div>
+        </div>
+
+        <h2>📚 Educational Value</h2>
+        <p>The Tower of Hanoi is one of the most important problems in computer science. Our game includes comprehensive educational content covering:</p>
+        <ul>
+            <li>The history of the puzzle (invented by Édouard Lucas in 1883)</li>
+            <li>The mathematical formula: T(n) = 2ⁿ − 1</li>
+            <li>The recursive algorithm with pseudocode</li>
+            <li>Step-by-step solving strategies and tips</li>
+        </ul>
+
+        <h2>🛠️ Technology</h2>
+        <p>Built with modern web technologies — pure HTML, CSS, and JavaScript with no external frameworks. The backend uses Python (Flask) with MySQL for the leaderboard system.</p>
+
+        <!--<h2>📬 Contact</h2>
+        <p>Have feedback, bug reports, or partnership inquiries? Reach out to us at <a href="mailto:contact@yourdomain.com">shoaib@.com</a>.</p> -->
+
+        <a href="index.html" class="cta">🎮 Play Now</a>
+    </div>
+    <div class="footer">&copy; 2024–2026 Tower of Hanoi. All rights reserved.</div>
+
+    <script>
+        const saved = localStorage.getItem('hanoi-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+    </script>
+</body>
+</html>

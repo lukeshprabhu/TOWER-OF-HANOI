@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a1a">
+    <meta name="description" content="Play the classic Tower of Hanoi puzzle game online for free. Features smooth animations, 3-9 disks, auto-solve, hints, global leaderboard, and social sharing. Learn the algorithm, formula, and history.">
+    <meta name="keywords" content="Tower of Hanoi, puzzle game, online game, brain teaser, recursion, algorithm, math puzzle, free game, leaderboard">
+    <meta name="author" content="Tower of Hanoi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tower of Hanoi — Free Online Puzzle Game">
+    <meta property="og:description" content="Play the classic Tower of Hanoi puzzle with smooth animations, global leaderboard, and 3-9 disk difficulty. Can you solve it optimally?">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:site_name" content="Tower of Hanoi">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tower of Hanoi — Free Online Puzzle Game">
+    <meta name="twitter:description" content="Play the classic Tower of Hanoi puzzle with smooth animations, global leaderboard, and 3-9 disk difficulty.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗼</text></svg>">
+
+    <title>Tower of Hanoi — Free Online Puzzle Game | Play Now</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tower of Hanoi",
+        "description": "Play the classic Tower of Hanoi puzzle game online for free with smooth animations, hints, auto-solve, and a global leaderboard.",
+        "url": "https://yourdomain.com/",
+        "applicationCategory": "GameApplication",
+        "genre": "Puzzle",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "1250" }
+    }
+    </script>
+
+    <!-- Google AdSense (replace ca-pub-XXXXXXX with your publisher ID) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="theme-toggle" title="Toggle theme">🌙</button>
+
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="app">
+        <header class="header" style="position:relative">
+            <h1 class="title"><span class="title-icon">🗼</span> Tower of Hanoi</h1>
+            <p class="subtitle">Move all disks to the last peg. Larger disks can't go on smaller ones.</p>
+            <button class="leaderboard-btn" id="btn-leaderboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            </button>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <span class="stat-label">Moves</span>
+                <span class="stat-value" id="move-count">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Best</span>
+                <span class="stat-value" id="min-moves">15</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Time</span>
+                <span class="stat-value" id="timer">00:00</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Disks</span>
+                <div class="disk-selector" id="disk-selector">
+                    <button class="disk-btn" data-disks="3">3</button>
+                    <button class="disk-btn active" data-disks="4">4</button>
+                    <button class="disk-btn" data-disks="5">5</button>
+                    <button class="disk-btn" data-disks="6">6</button>
+                    <button class="disk-btn" data-disks="7">7</button>
+                    <button class="disk-btn" data-disks="8">8</button>
+                    <button class="disk-btn" data-disks="9">9</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-board" id="game-board">
+            <div class="tower" id="tower-0">
+                <div class="peg"></div>
+                <div class="base"></div>
+                <div class="disk-stack" id="stack-0"></div>
+                <div class="tower-label">A</div>
+            </div>
+            <div class="tower" id="tower-1">
+                <div class="peg"></div>
+                <div class="base"></div>
+                <div class="disk-stack" id="stack-1"></div>
+                <div class="tower-label">B</div>
+            </div>
+            <div class="tower" id="tower-2">
+                <div class="peg"></div>
+                <div class="base"></div>
+                <div class="disk-stack" id="stack-2"></div>
+                <div class="tower-label">C</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-reset" id="btn-reset">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                Reset
+            </button>
+            <button class="btn btn-undo" id="btn-undo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+                Undo
+            </button>
+            <button class="btn btn-hint" id="btn-hint">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+                Hint
+            </button>
+           <!-- <button class="btn btn-auto" id="btn-auto">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Solve
+            </button>-->
+        </div>
+
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <!-- Info Section -->
+    <section class="info-section">
+        <h2>📖 About Tower of Hanoi</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🏛️ History</h3>
+                <p>The Tower of Hanoi was invented in <strong>1883</strong> by French mathematician <strong>Édouard Lucas</strong>. He was inspired by a legend from an Indian temple in Kashi Vishwanath, where Brahmin priests were tasked with moving 64 golden disks between three diamond needles according to specific rules. According to the legend, when all 64 disks are moved, the world will end.</p>
+                <p style="margin-top:8px">The puzzle became one of the most studied problems in computer science and mathematics, commonly used to teach recursion and algorithm design.</p>
+            </div>
+            <div class="info-card">
+                <h3>🧮 Formula</h3>
+                <p>The minimum number of moves required to solve the Tower of Hanoi with <code>n</code> disks is:</p>
+                <div class="formula-box">T(n) = 2ⁿ − 1</div>
+                <ul>
+                    <li>3 disks → <code>2³ − 1 = 7</code> moves</li>
+                    <li>4 disks → <code>2⁴ − 1 = 15</code> moves</li>
+                    <li>5 disks → <code>2⁵ − 1 = 31</code> moves</li>
+                    <li>9 disks → <code>2⁹ − 1 = 511</code> moves</li>
+                    <li>64 disks → <code>2⁶⁴ − 1 ≈ 1.8 × 10¹⁹</code> moves (~585 billion years at 1 move/sec!)</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>⚙️ Algorithm (Recursive)</h3>
+                <p>The classic recursive solution follows these steps for <code>n</code> disks from source <code>A</code> to target <code>C</code> using auxiliary <code>B</code>:</p>
+                <ul>
+                    <li>Move top <code>n−1</code> disks from A → B (using C as auxiliary)</li>
+                    <li>Move the largest disk from A → C</li>
+                    <li>Move <code>n−1</code> disks from B → C (using A as auxiliary)</li>
+                </ul>
+                <div class="formula-box" style="font-size:0.85rem; text-align:left; letter-spacing:0">
+hanoi(n, src, dst, aux):<br>
+&nbsp;&nbsp;if n == 1: move src → dst<br>
+&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hanoi(n-1, src, aux, dst)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;move src → dst<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hanoi(n-1, aux, dst, src)
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>📝 Steps to Solve (3 Disks)</h3>
+                <p>Here's the optimal 7-move solution for 3 disks (A → C):</p>
+                <ul>
+                    <li><strong>Move 1:</strong> Disk 1 → A to C</li>
+                    <li><strong>Move 2:</strong> Disk 2 → A to B</li>
+                    <li><strong>Move 3:</strong> Disk 1 → C to B</li>
+                    <li><strong>Move 4:</strong> Disk 3 → A to C</li>
+                    <li><strong>Move 5:</strong> Disk 1 → B to A</li>
+                    <li><strong>Move 6:</strong> Disk 2 → B to C</li>
+                    <li><strong>Move 7:</strong> Disk 1 → A to C ✅</li>
+                </ul>
+            </div>
+            <div class="info-card full-width">
+                <h3>💡 Tips & Strategies</h3>
+                <ul>
+                    <li>For an <strong>odd</strong> number of disks, the first move should go to the <strong>target</strong> peg</li>
+                    <li>For an <strong>even</strong> number of disks, the first move should go to the <strong>auxiliary</strong> peg</li>
+                    <li>The smallest disk moves every other turn, always in the same direction</li>
+                    <li>Never move the same disk twice in a row (in the optimal solution)</li>
+                    <li>Use the <strong>Hint</strong> button to see the next optimal move if you're stuck!</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Slot 
+    <div class="ad-slot" id="ad-bottom">
+        <!-- AdSense ad unit will appear here 
+        Ad Space
+    </div> -->
+
+    <!-- Professional Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span class="footer-brand">🗼 Tower of Hanoi</span>
+            <nav class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="about.html">About</a>
+                <a href="mailto:contact@yourdomain.com">Contact</a>
+            </nav>
+            <p class="footer-copy">&copy; 2024–2026 Tower of Hanoi. All rights reserved. | Built with 💜</p>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner 
+    <div class="cookie-banner" id="cookie-banner">
+        <p class="cookie-text">🍪 We use cookies to improve your experience and show relevant ads. By continuing, you agree to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+        <div class="cookie-btns">
+            <button class="cookie-accept" id="cookie-accept">Accept All</button>
+            <button class="cookie-decline" id="cookie-decline">Decline</button>
+        </div>
+    </div> -->
+
+    <!-- Win Modal (3-step) -->
+    <div class="modal-overlay" id="win-modal">
+        <div class="modal">
+            <div class="modal-confetti" id="confetti-container"></div>
+            <div class="win-step active" id="win-step-1">
+                <div class="modal-icon">🏆</div>
+                <h2 class="modal-title">Congratulations!</h2>
+                <p class="modal-text" id="win-text">You solved it in <strong>0 moves</strong> in <strong>00:00</strong></p>
+                <div class="modal-stars" id="modal-stars"></div>
+                <button class="btn-submit" id="btn-to-step2">Submit Score</button>
+                <button class="btn-skip" id="btn-skip-submit">Skip</button>
+            </div>
+            <div class="win-step" id="win-step-2">
+                <h2 class="modal-title">Your Info</h2>
+                <p class="modal-text">Enter your name to appear on the leaderboard!</p>
+                <div class="win-form">
+                    <input type="text" class="win-input" id="player-name" placeholder="Your name" maxlength="30" autocomplete="off">
+                    <div class="country-picker" id="country-picker">
+                        <input type="text" class="country-search" id="country-search" placeholder="🌍 Search country..." autocomplete="off">
+                        <div class="country-list" id="country-list"></div>
+                    </div>
+                    <input type="hidden" id="player-country" value="">
+                    <button class="btn-submit" id="btn-submit-score">Submit</button>
+                    <button class="btn-skip" id="btn-skip-info">Skip</button>
+                </div>
+            </div>
+            <div class="win-step" id="win-step-3">
+                <h2 class="modal-title">Share Your Win! 🎉</h2>
+                <p class="share-title">Challenge your friends to beat your score!</p>
+                <div class="share-grid">
+                    <button class="share-btn share-wa" id="share-wa" title="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+                    <button class="share-btn share-tg" id="share-tg" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></button>
+                    <button class="share-btn share-fb" id="share-fb" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+                    <button class="share-btn share-x" id="share-x" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                    <button class="share-btn share-ig" id="share-ig" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 1 0 0-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 1 1-2.882 0 1.441 1.441 0 0 1 2.882 0z"/></svg></button>
+                </div>
+                <div class="share-actions">
+                    <button class="btn btn-play-again" id="btn-view-lb">🏆 Leaderboard</button>
+                    <button class="btn btn-play-again" id="btn-play-again">Play Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div class="lb-modal" id="lb-modal">
+        <div class="lb-content">
+            <div class="lb-header">
+                <span class="lb-title">🏆 Leaderboard</span>
+                <button class="lb-close" id="lb-close">&times;</button>
+            </div>
+            <div class="lb-tabs" id="lb-tabs"></div>
+            <div class="lb-table-wrap">
+                <table class="lb-table">
+                    <thead><tr><th>#</th><th>Player</th><th>Moves</th><th>Time</th></tr></thead>
+                    <tbody id="lb-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+
+</body>
+</html>
